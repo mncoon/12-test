@@ -26,8 +26,8 @@ class ResUsers(models.Model):
     def calendly_activate_webhooks(self):
         IrConfig = self.env['ir.config_parameter'].sudo()
         calendly = Calendly(self.calendly_token)
-        result = calendly.create_webhook('https://syscoon.com/calendly')
-        #result = calendly.create_webhook(IrConfig.get_param('web.base.url') + '/calendly')
+       # result = calendly.create_webhook('https://syscoon.com/calendly')
+        result = calendly.create_webhook(IrConfig.get_param('web.base.url') + '/calendly')
         if result.get('id'):
             self.write({
                 'calendly_webkooks_id': result['id'],
