@@ -42,7 +42,7 @@ class ResUsers(models.Model):
         about = calendly.about()
         vals = {}
         if hooks['data']:
-            vals['calendly_webkooks_id'] = hooks['data']['id']
+            vals['calendly_webkooks_id'] = hooks['data'][0]['id']
         if about['data'].get('attributes'):
             if about['data']['attributes'].get('url'):
                 vals['calendly_url'] = about['data']['attributes']['url']
