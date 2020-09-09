@@ -39,6 +39,8 @@ class CalendlyWeb(http.Controller):
                 event['duration'] = float(data['payload']['event_type']['duration']) / 60
                 alarm = http.request.env['ir.model.data'].get_object_reference('calendar', 'alarm_notif_1')
                 event['alarm_ids'] = [(4, alarm[1])]
+            if data['payload'].get('questions_and_responses'):
+                event['description'] = data['payload']['questions_and_responses']['1_response']
         if event:
             http.request.env['calendar.event'].sudo().create(event)
         return http.Response("OK", status=200)
