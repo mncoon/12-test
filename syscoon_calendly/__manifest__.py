@@ -9,6 +9,7 @@
     'summary': 'Integrates Calendly into the Odoo Calendar',
     'description': """Integrates Calendly into the Odoo Calendar""",
     'category': 'Extra Tools',
+    'depends' : ['base', 'crm', 'calendar'],
     'data': [
         'views/res_users.xml',
     ],

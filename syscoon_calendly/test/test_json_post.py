@@ -1,0 +1,10 @@
+import requests
+import json
+
+url = 'http://localhost:8069/calendly'
+headers = {'Content-Type': 'application/json'}
+data = {'event': 'invitee.created', 'payload': {'event_type': {'uuid': 'AECRD5TGCOI3PZK2', 'kind': 'One-on-One', 'slug': '30min', 'name': '30 Minuten Besprechung', 'duration': 30, 'owner': {'type': 'users', 'uuid': 'GBDGIXO2DVNJBEZW'}}, 'event': {'uuid': 'BAUDOPFFIWLHS4SH', 'assigned_to': ['Mathias Neef'], 'extended_assigned_to': [{'name': 'Mathias Neef', 'email': 'mathias.neef@syscoon.com', 'primary': True}], 'start_time': '2020-09-17T09:00:00+02:00', 'start_time_pretty': '09:00am - Thursday, September 17, 2020', 'invitee_start_time': '2020-09-17T09:00:00+02:00', 'invitee_start_time_pretty': '09:00am - Thursday, September 17, 2020', 'end_time': '2020-09-17T09:30:00+02:00', 'end_time_pretty': '09:30am - Thursday, September 17, 2020', 'invitee_end_time': '2020-09-17T09:30:00+02:00', 'invitee_end_time_pretty': '09:30am - Thursday, September 17, 2020', 'created_at': '2020-09-07T20:33:00+02:00', 'location': None, 'canceled': False, 'canceler_name': None, 'cancel_reason': None, 'canceled_at': None}, 'invitee': {'uuid': 'CHVJG54MZPVKEB4Y', 'first_name': None, 'last_name': None, 'name': 'Mathias Neef', 'email': 'info@syscoon.com', 'text_reminder_number': None, 'timezone': 'Europe/Berlin', 'created_at': '2020-09-07T20:33:00+02:00', 'is_reschedule': False, 'payments': [], 'canceled': False, 'canceler_name': None, 'cancel_reason': None, 'canceled_at': None}, 'questions_and_answers': [], 'questions_and_responses': {}, 'tracking': {'utm_campaign': None, 'utm_source': 'crm.lead,1', 'utm_medium': None, 'utm_content': None, 'utm_term': None, 'salesforce_uuid': None}, 'old_event': None, 'old_invitee': None, 'new_event': None, 'new_invitee': None}, 'time': '2020-09-07T18:33:01Z'}
+
+data_json = json.dumps(data)
+r = requests.post(url=url, data=data_json, headers=headers)
+print(r)
