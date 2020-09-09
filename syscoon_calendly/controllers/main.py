@@ -4,6 +4,7 @@ import logging
 import requests
 import json
 import dateutil
+import pytz
 from datetime import datetime
 
 from odoo import http
@@ -20,9 +21,10 @@ class CalendlyWeb(http.Controller):
         event = {}
         if data['event'] == 'invitee.created':
             if data['payload']['event']:
-                event['start'] = dateutil.parser.parse(data['payload']['event']['start_time']).strftime('%Y-%m-%d %H:%M:%S')
-                event['stop'] = dateutil.parser.parse(data['payload']['event']['end_time']).strftime('%Y-%m-%d %H:%M:%S')
                 user_id = http.request.env['res.users'].sudo().search([('calendly_email', '=', data['payload']['event']['extended_assigned_to'][0]['email'])])
+                tz = datetime.now(pytz.timezone(user_id.tz)).utcoffset()
+                event['start'] = (dateutil.parser.parse(data['payload']['event']['start_time'], ignoretz=True)-tz).strftime('%Y-%m-%d %H:%M:%S')
+                event['stop'] = (dateutil.parser.parse(data['payload']['event']['end_time'], ignoretz=True)-tz).strftime('%Y-%m-%d %H:%M:%S')
                 event['user_id'] = user_id.id
             if data['payload']['tracking']['utm_source']:
                 source = data['payload']['tracking']['utm_source'].split(',')
